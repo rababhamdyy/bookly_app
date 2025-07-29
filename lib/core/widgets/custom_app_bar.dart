@@ -1,11 +1,10 @@
-import 'package:bookly_app/core/resources/assets_images.dart';
 import 'package:bookly_app/core/theming/app_color.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget {
-  const CustomAppBar({
-    super.key,
-  });
+  final IconData icon;
+  final String? assetImage;
+  const CustomAppBar({super.key, required this.icon, this.assetImage});
 
   @override
   Widget build(BuildContext context) {
@@ -14,10 +13,16 @@ class CustomAppBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Image.asset(AssetsImages.booklyLogo),
+          Visibility(
+            visible: assetImage != null,
+            maintainSize: true,
+            maintainAnimation: true,
+            maintainState: true,
+            child: Image.asset(assetImage ?? ''),
+          ),
           IconButton(
             onPressed: () {},
-            icon: const Icon(Icons.search, size: 25,color: AppColor.whiteColor),
+            icon: Icon(icon, size: 25, color: AppColor.whiteColor),
           ),
         ],
       ),
