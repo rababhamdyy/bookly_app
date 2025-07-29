@@ -1,9 +1,12 @@
 import 'package:bookly_app/core/helpers/extension.dart';
 import 'package:bookly_app/core/resources/assets_images.dart';
-import 'package:bookly_app/core/resources/strings.dart';
 import 'package:bookly_app/core/routing/routes.dart';
+import 'package:bookly_app/core/theming/app_color.dart';
 import 'package:bookly_app/core/theming/styles.dart';
-import 'package:bookly_app/core/widgets/rating.dart';
+import 'package:bookly_app/featuers/home/ui/components/author_name.dart';
+import 'package:bookly_app/featuers/home/ui/components/book_name.dart';
+import 'package:bookly_app/featuers/home/ui/components/book_price.dart';
+import 'package:bookly_app/featuers/home/ui/components/rating.dart';
 import 'package:flutter/material.dart';
 
 class VerticalContainer extends StatelessWidget {
@@ -31,27 +34,12 @@ class VerticalContainer extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      AppStrings.bookName,
-                      style: AppStyles.textStyle20Regular,
-                      softWrap: true,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    Text(
-                      AppStrings.authorName,
-                      style: AppStyles.textStyle14w500,
-                      softWrap: true,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
+                    BookName(style: AppStyles.textStyle20Regular,),
+                    AuthorName(style: AppStyles.textStyle14w500),
                     Expanded(
                       child: Row(
                         children: [
-                          Text(
-                            AppStrings.bookPrice,
-                            style: AppStyles.textStyle20Bold,
-                          ),
+                          BookPrice(color: AppColor.whiteColor,),
                           Spacer(),
                           Rating()
                         ],
