@@ -1,4 +1,5 @@
 import 'package:bookly_app/core/resources/assets_images.dart';
+import 'package:bookly_app/core/theming/app_color.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget {
@@ -16,7 +17,7 @@ class CustomAppBar extends StatelessWidget {
           Image.asset(AssetsImages.booklyLogo),
           IconButton(
             onPressed: () {},
-            icon: const Icon(Icons.search, size: 25),
+            icon: const Icon(Icons.search, size: 25,color: AppColor.whiteColor),
           ),
         ],
       ),
