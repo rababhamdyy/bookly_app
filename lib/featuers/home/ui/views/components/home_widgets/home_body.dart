@@ -9,13 +9,15 @@ class HomeBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        CustomAppBar(),
-        HorizontalBooks(),
-        BestSellerWidget(),
-        VerticalBooks(),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          CustomAppBar(),
+          HorizontalBooks(),
+          BestSellerWidget(),
+          VerticalBooks(),
+        ],
+      ),
     );
   }
 }
