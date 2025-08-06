@@ -1,12 +1,10 @@
-import 'package:bookly_app/core/network/api_service.dart';
+import 'package:bookly_app/core/di/service_locator.dart';
 import 'package:bookly_app/core/resources/strings.dart';
 import 'package:bookly_app/core/routing/app_router.dart';
 import 'package:bookly_app/core/routing/routes.dart';
 import 'package:bookly_app/core/theming/app_color.dart';
-import 'package:bookly_app/featuers/home/data/repo/home_repo_implement.dart';
 import 'package:bookly_app/featuers/home/ui/manager/all_books_cubit/all_books_cubit.dart';
 import 'package:bookly_app/featuers/home/ui/manager/best_seller_cubit/best_seller_cubit.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -19,16 +17,10 @@ class BooklyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create:
-              (context) =>
-                  AllBooksCubit(HomeRepoImplement(ApiService(Dio())))
-                    ..getAllBooks(),
+          create: (context) => getIt<AllBooksCubit>()..getAllBooks(),
         ),
         BlocProvider(
-          create:
-              (context) =>
-                  BestSellerCubit(HomeRepoImplement(ApiService(Dio())))
-                    ..getBestSellerBooks(),
+          create: (context) => getIt<BestSellerCubit>()..getBestSellerBooks(),
         ),
       ],
       child: MaterialApp(
