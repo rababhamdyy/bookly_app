@@ -16,7 +16,7 @@ class VerticalContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => context.pushNamed(Routes.details),
+      onTap: () => context.pushNamed(Routes.details, arguments: book),
       child: Container(
         height: 115,
         margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 8),

@@ -1,4 +1,5 @@
 import 'package:bookly_app/core/theming/styles.dart';
+import 'package:bookly_app/featuers/home/data/model/book_volume.dart';
 import 'package:bookly_app/featuers/home/ui/manager/best_seller_cubit/best_seller_cubit.dart';
 import 'package:bookly_app/featuers/home/ui/manager/best_seller_cubit/best_seller_state.dart';
 import 'package:bookly_app/featuers/home/ui/views/components/details_widgets/details_body.dart';
@@ -6,10 +7,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DetailsView extends StatelessWidget {
-  const DetailsView({super.key});
+  final BookVolume? book;
+
+  const DetailsView({super.key, this.book});
 
   @override
   Widget build(BuildContext context) {
+    // If book is passed directly, use it
+    if (book != null) {
+      return Scaffold(body: DetailsBody(book: book!));
+    }
+
+    // Otherwise, get from cubit (fallback)
     return BlocBuilder<BestSellerCubit, BestSellerState>(
       builder: (context, bestSellerState) {
         if (bestSellerState is BestSellerLoaded) {
