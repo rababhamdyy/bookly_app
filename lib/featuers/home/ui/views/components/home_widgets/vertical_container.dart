@@ -22,37 +22,65 @@ class VerticalContainer extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 8),
         child: Row(
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(16),
-              child: Image.network(
-                book.volumeInfo.imageLinks?.thumbnail ?? '',
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) => Icon(Icons.error),
+            // Book Image - Fixed size
+            Container(
+              width: 80,
+              height: 115,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.network(
+                  book.volumeInfo.imageLinks?.thumbnail ?? '',
+                  fit: BoxFit.cover,
+                  errorBuilder:
+                      (context, error, stackTrace) => Container(
+                        color: Colors.grey[300],
+                        child: Icon(Icons.book, color: Colors.grey[600]),
+                      ),
+                ),
               ),
             ),
-            const SizedBox(width: 30),
+            const SizedBox(width: 16),
+            // Book Details - Fixed layout
             Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
+              child: Container(
+                height: 115,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    BookName(
-                      bookName: book.volumeInfo.title,
-                      style: AppStyles.textStyle20Regular,
+                    // Book Title - Allow more height for multi-line text
+                    Container(
+                      height: 50,
+                      child: BookName(
+                        bookName: book.volumeInfo.title,
+                        style: AppStyles.textStyle20Regular.copyWith(
+                          height: 1.2,
+                        ),
+                      ),
                     ),
-                    AuthorName(
-                      authorName: book.volumeInfo.authors.first,
-                      style: AppStyles.textStyle14w500,
+                    // Author Name - Fixed height
+                    Container(
+                      height: 20,
+                      child: AuthorName(
+                        authorName:
+                            book.volumeInfo.authors.isNotEmpty
+                                ? book.volumeInfo.authors.first
+                                : 'Unknown Author',
+                        style: AppStyles.textStyle14w500,
+                      ),
                     ),
-                    Expanded(
+                    // Price and Rating - Fixed height
+                    Container(
+                      height: 30,
                       child: Row(
                         children: [
-                          BookPrice(
-                            bookPrice: book.saleInfo.listPrice?.amount ?? 0.0,
-                            color: AppColor.whiteColor,
+                          Expanded(
+                            child: BookPrice(
+                              bookPrice: book.saleInfo.listPrice?.amount ?? 0.0,
+                              color: AppColor.whiteColor,
+                            ),
                           ),
-                          Spacer(),
+                          SizedBox(width: 8),
                           Rating(
                             bookRate: book.volumeInfo.averageRating ?? 0.0,
                             ratingCount: book.volumeInfo.ratingsCount ?? 0,

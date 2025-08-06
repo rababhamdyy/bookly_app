@@ -18,9 +18,9 @@ class OtherBooks extends StatelessWidget {
         }
       },
       child: Container(
-        width: 70,
-        height: 100,
-        margin: const EdgeInsets.only(right: 10),
+        width: 80,
+        height: 120,
+        margin: const EdgeInsets.only(right: 12),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
           boxShadow: [
@@ -51,7 +51,7 @@ class OtherBooks extends StatelessWidget {
   Widget _buildPlaceholder() {
     return Container(
       color: AppColor.blackColor,
-      child: Icon(Icons.book, size: 30, color: AppColor.primaryColor),
+      child: Icon(Icons.book, size: 40, color: AppColor.primaryColor),
     );
   }
 }

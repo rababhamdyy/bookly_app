@@ -67,15 +67,20 @@ class _HorizontalBooksState extends State<HorizontalBooks> {
                       child: Container(
                         width: width,
                         height: height,
-                        margin: const EdgeInsets.only(right: 8),
+                        margin: const EdgeInsets.only(right: 12),
                         child: ClipRRect(
-                          borderRadius: BorderRadius.circular(16),
+                          borderRadius: BorderRadius.circular(12),
                           child: Image.network(
                             book.volumeInfo.imageLinks?.thumbnail ?? '',
                             fit: BoxFit.cover,
                             errorBuilder:
-                                (context, error, stackTrace) =>
-                                    Icon(Icons.error),
+                                (context, error, stackTrace) => Container(
+                                  color: Colors.grey[300],
+                                  child: Icon(
+                                    Icons.book,
+                                    color: Colors.grey[600],
+                                  ),
+                                ),
                           ),
                         ),
                       ),
