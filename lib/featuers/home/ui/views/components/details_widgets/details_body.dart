@@ -2,11 +2,11 @@ import 'package:bookly_app/core/resources/assets_images.dart';
 import 'package:bookly_app/core/resources/strings.dart';
 import 'package:bookly_app/core/theming/styles.dart';
 import 'package:bookly_app/core/widgets/custom_app_bar.dart';
-import 'package:bookly_app/featuers/home/ui/components/book_name.dart';
-import 'package:bookly_app/featuers/home/ui/components/details_widgets/details_container.dart';
-import 'package:bookly_app/featuers/home/ui/components/details_widgets/other_books.dart';
-import 'package:bookly_app/featuers/home/ui/components/rating.dart';
-import 'package:bookly_app/featuers/home/ui/components/author_name.dart';
+import 'package:bookly_app/featuers/home/ui/views/components/book_name.dart';
+import 'package:bookly_app/featuers/home/ui/views/components/details_widgets/details_container.dart';
+import 'package:bookly_app/featuers/home/ui/views/components/details_widgets/other_books.dart';
+import 'package:bookly_app/featuers/home/ui/views/components/rating.dart';
+import 'package:bookly_app/featuers/home/ui/views/components/author_name.dart';
 import 'package:flutter/material.dart';
 
 class DetailsBody extends StatelessWidget {

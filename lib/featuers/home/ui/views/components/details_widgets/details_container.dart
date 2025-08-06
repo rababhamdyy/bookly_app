@@ -1,7 +1,7 @@
 import 'package:bookly_app/core/resources/strings.dart';
 import 'package:bookly_app/core/theming/app_color.dart';
 import 'package:bookly_app/core/theming/styles.dart';
-import 'package:bookly_app/featuers/home/ui/components/book_price.dart';
+import 'package:bookly_app/featuers/home/ui/views/components/book_price.dart';
 import 'package:flutter/material.dart';
 
 class DetailsContainer extends StatelessWidget {

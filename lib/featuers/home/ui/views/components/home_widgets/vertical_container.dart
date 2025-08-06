@@ -3,10 +3,10 @@ import 'package:bookly_app/core/resources/assets_images.dart';
 import 'package:bookly_app/core/routing/routes.dart';
 import 'package:bookly_app/core/theming/app_color.dart';
 import 'package:bookly_app/core/theming/styles.dart';
-import 'package:bookly_app/featuers/home/ui/components/author_name.dart';
-import 'package:bookly_app/featuers/home/ui/components/book_name.dart';
-import 'package:bookly_app/featuers/home/ui/components/book_price.dart';
-import 'package:bookly_app/featuers/home/ui/components/rating.dart';
+import 'package:bookly_app/featuers/home/ui/views/components/author_name.dart';
+import 'package:bookly_app/featuers/home/ui/views/components/book_name.dart';
+import 'package:bookly_app/featuers/home/ui/views/components/book_price.dart';
+import 'package:bookly_app/featuers/home/ui/views/components/rating.dart';
 import 'package:flutter/material.dart';
 
 class VerticalContainer extends StatelessWidget {
