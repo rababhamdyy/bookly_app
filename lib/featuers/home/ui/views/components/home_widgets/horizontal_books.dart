@@ -1,5 +1,8 @@
-import 'package:bookly_app/core/resources/assets_images.dart';
+import 'package:bookly_app/core/theming/styles.dart';
+import 'package:bookly_app/featuers/home/ui/manager/all_books_cubit/all_books_cubit.dart';
+import 'package:bookly_app/featuers/home/ui/manager/all_books_cubit/all_books_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HorizontalBooks extends StatefulWidget {
   const HorizontalBooks({super.key});
@@ -38,26 +41,45 @@ class _HorizontalBooksState extends State<HorizontalBooks> {
       padding: const EdgeInsets.only(left: 40),
       child: SizedBox(
         height: 224,
-        child: ListView.builder(
-          controller: _scrollController,
-          scrollDirection: Axis.horizontal,
-          itemCount: 10,
-          itemBuilder: (context, index) {
-            final bool isActive = index == visibleIndex;
-            final double width = isActive ? 150 : 129.21;
-            final double height = isActive ? 224 : 193.3;
-            return Align(
-              alignment: Alignment.center,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(16),
-                child: Container(
-                  width: width,
-                  height: height,
-                  margin: const EdgeInsets.only(right: 8),
-                  child: Image.asset(AssetsImages.testImage, fit: BoxFit.cover),
-                ),
-              ),
-            );
+        child: BlocBuilder<AllBooksCubit, AllBooksState>(
+          builder: (context, allBooksState) {
+            if (allBooksState is AllBooksLoaded) {
+              final allBooks = allBooksState.allBooks;
+              return ListView.builder(
+                controller: _scrollController,
+                scrollDirection: Axis.horizontal,
+                itemCount: allBooks.length,
+                itemBuilder: (context, index) {
+                  final book = allBooks[index];
+                  final bool isActive = index == visibleIndex;
+                  final double width = isActive ? 150 : 129.21;
+                  final double height = isActive ? 224 : 193.3;
+                  return Align(
+                    alignment: Alignment.center,
+                    child: Container(
+                      width: width,
+                      height: height,
+                      margin: const EdgeInsets.only(right: 8),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(16),
+                        child: Image.network(
+                          book.volumeInfo.imageLinks!.thumbnail,
+                          fit: BoxFit.cover,
+                          errorBuilder:
+                              (context, error, stackTrace) => Icon(Icons.error),
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              );
+            } else if (allBooksState is AllBooksLoading) {
+              return Center(child: CircularProgressIndicator());
+            } else {
+              return Center(
+                child: Text('No books found', style: AppStyles.textStyle16w400),
+              );
+            }
           },
         ),
       ),
