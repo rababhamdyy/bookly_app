@@ -2,12 +2,15 @@ import 'package:bookly_app/core/resources/strings.dart';
 import 'package:bookly_app/core/theming/styles.dart';
 import 'package:bookly_app/core/widgets/custom_app_bar.dart';
 import 'package:bookly_app/featuers/home/data/model/book_volume.dart';
+import 'package:bookly_app/featuers/home/ui/manager/best_seller_cubit/best_seller_cubit.dart';
+import 'package:bookly_app/featuers/home/ui/manager/best_seller_cubit/best_seller_state.dart';
 import 'package:bookly_app/featuers/home/ui/views/components/book_name.dart';
 import 'package:bookly_app/featuers/home/ui/views/components/details_widgets/details_container.dart';
 import 'package:bookly_app/featuers/home/ui/views/components/details_widgets/other_books.dart';
 import 'package:bookly_app/featuers/home/ui/views/components/rating.dart';
 import 'package:bookly_app/featuers/home/ui/views/components/author_name.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DetailsBody extends StatelessWidget {
   final BookVolume book;
@@ -49,11 +52,28 @@ class DetailsBody extends StatelessWidget {
           padding: const EdgeInsets.only(left: 30, top: 10),
           child: SizedBox(
             height: 112,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: 10,
-              itemBuilder: (context, index) {
-                return OtherBooks();
+            child: BlocBuilder<BestSellerCubit, BestSellerState>(
+              builder: (context, bestSellerState) {
+                if (bestSellerState is BestSellerLoaded) {
+                  final books = bestSellerState.bestSellerBooks;
+                  return ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: books.length,
+                    itemBuilder: (context, index) {
+                      final otherBook = books[index];
+                      return OtherBooks(book: otherBook);
+                    },
+                  );
+                } else {
+                  // Fallback: show placeholder books
+                  return ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 5,
+                    itemBuilder: (context, index) {
+                      return OtherBooks();
+                    },
+                  );
+                }
               },
             ),
           ),
