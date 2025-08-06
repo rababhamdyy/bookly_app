@@ -1,8 +1,8 @@
 import 'package:bookly_app/core/helpers/extension.dart';
-import 'package:bookly_app/core/resources/assets_images.dart';
 import 'package:bookly_app/core/routing/routes.dart';
 import 'package:bookly_app/core/theming/app_color.dart';
 import 'package:bookly_app/core/theming/styles.dart';
+import 'package:bookly_app/featuers/home/data/model/book_volume.dart';
 import 'package:bookly_app/featuers/home/ui/views/components/author_name.dart';
 import 'package:bookly_app/featuers/home/ui/views/components/book_name.dart';
 import 'package:bookly_app/featuers/home/ui/views/components/book_price.dart';
@@ -10,9 +10,8 @@ import 'package:bookly_app/featuers/home/ui/views/components/rating.dart';
 import 'package:flutter/material.dart';
 
 class VerticalContainer extends StatelessWidget {
-  const VerticalContainer({
-    super.key,
-  });
+  final BookVolume book;
+  const VerticalContainer({super.key, required this.book});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +24,11 @@ class VerticalContainer extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(16),
-              child: Image.asset(AssetsImages.testImage2),
+              child: Image.network(
+                book.volumeInfo.imageLinks?.thumbnail ?? '',
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) => Icon(Icons.error),
+              ),
             ),
             const SizedBox(width: 30),
             Expanded(
@@ -34,14 +37,26 @@ class VerticalContainer extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    BookName(style: AppStyles.textStyle20Regular,),
-                    AuthorName(style: AppStyles.textStyle14w500),
+                    BookName(
+                      bookName: book.volumeInfo.title,
+                      style: AppStyles.textStyle20Regular,
+                    ),
+                    AuthorName(
+                      authorName: book.volumeInfo.authors.first,
+                      style: AppStyles.textStyle14w500,
+                    ),
                     Expanded(
                       child: Row(
                         children: [
-                          BookPrice(color: AppColor.whiteColor,),
+                          BookPrice(
+                            bookPrice: book.saleInfo.listPrice?.amount ?? 0.0,
+                            color: AppColor.whiteColor,
+                          ),
                           Spacer(),
-                          Rating()
+                          Rating(
+                            bookRate: book.volumeInfo.averageRating ?? 0.0,
+                            ratingCount: book.volumeInfo.ratingsCount ?? 0,
+                          ),
                         ],
                       ),
                     ),
